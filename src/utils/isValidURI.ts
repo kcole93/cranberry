@@ -6,7 +6,10 @@ export default function isValidURI(uri: string): boolean {
     return false
   }
 
-  // Use a regex to check general URI format
-  const regex = /^(?:[a-z][a-z\d+.-]*):(?:\/{1,3}|[a-z0-9%])/i
-  return regex.test(uri)
+    try {
+        new URL(uri);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
