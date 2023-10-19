@@ -1,21 +1,7 @@
 import isValidURI from './src/utils/isValidURI'
 
 export const config = {
-  matcher: '/'
-}
-
-async function fetchHTMLResponse(req, uri) {
-  try {
-    const newUrl = new URL('/index.html', req.url)
-    if (uri) {
-      newUrl.searchParams.set('uri', uri)
-    }
-    const res = await fetch(newUrl)
-    const text = await res.text()
-    return new Response(text, { headers: res.headers })
-  } catch (error) {
-    return new Response('Internal Server Error', { status: 500 })
-  }
+  matcher: ['/']
 }
 
 export default async function middleware(req) {
@@ -23,16 +9,18 @@ export default async function middleware(req) {
   const uri = url.searchParams.get('uri')
 
   if (!uri) {
-    return await fetchHTMLResponse(req, null)
+    return null
   }
 
   if (isValidURI(uri)) {
     return Response.redirect(uri, 302)
   }
 
-  const fetchResponse = await fetchHTMLResponse(req, uri)
+  const errorUrl = new URL('/error', url.origin)
+  const errorPageResponse = await fetch(errorUrl)
+  const errorPageContent = await errorPageResponse.text()
 
-  return new Response(fetchResponse.body, {
+  return new Response(errorPageContent, {
     status: 400,
     headers: {
       'Content-Type': 'text/html'
