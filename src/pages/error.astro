@@ -1,8 +1,9 @@
 ---
-const { uri } = Astro.props
+import Layout from '../layouts/Layout.astro'
 ---
 
-<h1 class="text-gradient">400 - Bad Request</h1>
+<Layout>
+    <h1 class="text-gradient">400 - Bad Request</h1>
 <p>Invalid URI input received, please check again.</p>
 <p>
   Note: Cranberry <strong>does not</strong> support URLs with <span class='mono'
@@ -10,12 +11,10 @@ const { uri } = Astro.props
   > or <span class='mono'>https://</span>
    schemas.
 </p>
-<p>
-  <strong>Detected Input:</strong>
-  <div class='userInput'>
-    {uri}
-  </div>
-</p>
+
+<a href="/">&larr; Go back</a>
+</Layout>
+
 <style>
   .mono {
     font-family: monospace;
