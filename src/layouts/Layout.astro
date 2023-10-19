@@ -1,51 +1,99 @@
 ---
 interface Props {
-	title: string;
+  title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='Astro description' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+    <footer>Made with 🍓 by <a href="https://github.com/kcole93">Kevin</a> <br><a href="https://github.com/kcole93/cranberry/">View on Github</a></footer>
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  :root {
+    --accent: 148, 46, 63;
+    --accent-light: 219, 177, 177;
+    --accent-dark: 148, 46, 63;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-dark)) 30%,
+      white 60%
+    );
+  }
+  html {
+    font-family: system-ui, sans-serif;
+    background: #13151a;
+    background-size: 224px;
+  }
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    line-height: 1.6;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+
+  .instructions {
+    margin-bottom: 2rem;
+    border: 1px solid rgba(var(--accent-light), 100%);
+    background: linear-gradient(
+      rgba(var(--accent-dark), 66%),
+      rgba(var(--accent-dark), 33%)
+    );
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .instructions strong {
+    color: rgb(var(--accent-light));
+  }
+
+  a {
+    font-weight: bold;
+    color: white;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin-bottom: 1rem;
+  }
 </style>

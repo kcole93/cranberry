@@ -1,0 +1,35 @@
+---
+const { uri } = Astro.props
+---
+
+<h1 class="text-gradient">400 - Bad Request</h1>
+<p>Invalid URI input received, please check again.</p>
+<p>
+  Note: Cranberry <strong>does not</strong> support URLs with <span class='mono'
+    >http://</span
+  > or <span class='mono'>https://</span>
+   schemas.
+</p>
+<p>
+  <strong>Detected Input:</strong>
+  <div class='userInput'>
+    {uri}
+  </div>
+</p>
+<style>
+  .mono {
+    font-family: monospace;
+    color: black;
+    background-color: beige;
+    border-style: solid;
+    border-color: beige;
+    border-radius: 5px;
+  }
+  .userInput {
+    background-color: lightgray;
+    border-style: solid;
+    border-radius: 0.5rem;
+    color: black;
+    padding: 1rem;
+  }
+</style>

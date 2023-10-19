@@ -1,0 +1,51 @@
+---
+const host = Astro.url.origin
+import LinkMaker from '../components/linkMaker.astro'
+---
+
+<h1 class='text-gradient'>
+  Cranberry: <span class='tagline'>The cure for your URI.</span>
+</h1>
+
+<h2>What is Cranberry?</h2>
+<p>
+  Cranberry is a simple tool which allows you to insert clickable links to URIs,
+  even where only URLs are accepted, by constructing your link as follows:
+</p>
+
+<p class='instructions'>{host}/?uri=YOUR_URI</p>
+
+<h2>Make Me a Cranberry Link!</h2>
+<LinkMaker />
+
+<details>
+  <summary>What's the point?</summary>
+  <p>A lot of platforms let you create links to other webpages, but many of these platforms only allow you to make links using <em>URLs</em>, not <em>URIs</em>.</p>
+  <p>URI stands for <strong>U</strong>niform <strong>R</strong>esource <strong>I</strong>dentifier. URIs can be used for all kinds of things, but one particularly helpful function is that they can be used to launch desktop applications from a hyperlink.</p>
+  <p>However, when specific applications don't accept URIs as part of their hyperlink validation (for example, it's not possible to insert a URI as a clickable link in Slack), URIs aren't so functional. The point of Cranberry is to provide a workaround for such situations by allowing anyone to wrap their URI in a valid URL.</p>
+</details>
+
+<details>
+  <summary>How does it work?</summary>
+  <p>When you open a Cranberry URL with a valid URI, a <a href="https://docs.netlify.com/edge-functions/overview/#app">Netlify Edge Function</a> automatically redirects you to the URI. If the URI you provide is invalid, this Netlify Edge Function responds with a 400 error. Otherwise, you're just shown the home page (here!)</p>
+</details>
+
+
+
+
+<style>
+  .tagline {
+    font-weight: 300;
+  }
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  details {
+    margin-top: 2rem;
+  }
+  details > summary {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+</style>

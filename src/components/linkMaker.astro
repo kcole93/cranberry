@@ -1,0 +1,77 @@
+---
+const host = Astro.url.origin
+---
+
+<link-maker data-baseurl={host}>
+  <form id='linkForm'>
+    <label>Your URI:</label>
+    <input type='text' name='uri' placeholder='URI' />
+    <button type='submit'>Generate Link</button>
+  </form>
+  <div id='result'></div>
+</link-maker>
+
+<script>
+  import isValidURI from '../utils/isValidURI'
+
+  class LinkMaker extends HTMLElement {
+    constructor() {
+      super()
+
+      const baseURL = this.dataset.baseurl
+      const form = this.querySelector('#linkForm')
+      const inputField = this.querySelector('input')
+      const result = this.querySelector('div')
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        result.classList = 'result'
+        const text = inputField.value
+
+        if (isValidURI(text)) {
+          const fullURL = `${baseURL}/?uri=${text}`
+          inputField.value = ''
+          result.classList.add('instructions')
+          return (result.innerHTML = `<a href=${fullURL}>${fullURL}</a>`)
+        }
+
+        result.textContent = 'Invalid URI input received, please check again.'
+        result?.classList.add('error')
+      })
+    }
+  }
+
+  customElements.define('link-maker', LinkMaker)
+</script>
+
+<style>
+  label {
+    font-weight: 600;
+  }
+  input {
+    width: 100%;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+    padding-left: 0.5rem;
+  }
+  button {
+    width: 100%;
+    height: 2rem;
+    color: white;
+    font-weight: 700;
+    background-color: rgba(var(--accent), 100%);
+    border: 1px solid rgba(var(--accent-light), 100%);
+    border-radius: 4px;
+  }
+  :focus {
+    outline: 1px solid rgba(var(--accent-light, 100%));
+    outline-offset: 2px;
+  }
+  .result {
+    margin-top: 1em;
+  }
+  .error {
+    color: tomato;
+  }
+</style>
