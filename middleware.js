@@ -5,26 +5,38 @@ export const config = {
 }
 
 export default async function middleware(req) {
-  const url = new URL(req.url)
-  const uri = url.searchParams.get('uri')
-  console.log(decodeURI(uri))
+  const url = new URL(req.url);
+  const uriParam = url.searchParams.get('uri');
 
-  if (!uri) {
-    return null
+  if (!uriParam) {
+    return null;
   }
+
+  const uri = uriParam.replace(/ /g, '+');  // Replace spaces with + characters
 
   if (isValidURI(uri)) {
-    return Response.redirect(decodeURIComponent(uri), 302)
+    try {
+      return Response.redirect(new URL(uri), 302);
+    } catch (error) {
+      console.error('Redirection error:', error);
+      return await handleError(url, 'Failed to redirect due to an invalid URI.');
+    }
   }
 
-  const errorUrl = new URL('/error', url.origin)
-  const errorPageResponse = await fetch(errorUrl)
-  const errorPageContent = await errorPageResponse.text()
+  return await handleError(url, 'The URI provided is invalid.');
+}
+
+async function handleError(url, errorMessage) {
+  const errorUrl = new URL('/error', url.origin);
+  const errorPageResponse = await fetch(errorUrl);
+  const errorPageContent = await errorPageResponse.text();
 
   return new Response(errorPageContent, {
     status: 400,
     headers: {
-      'Content-Type': 'text/html'
-    }
-  })
+      'Content-Type': 'text/html',
+      'X-Error-Message': errorMessage,
+    },
+  });
 }
+
