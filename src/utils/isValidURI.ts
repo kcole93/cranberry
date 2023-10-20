@@ -5,11 +5,6 @@ export default function isValidURI(uri: string): boolean {
   if (['http', 'https', 'ftp', 'ws', 'wss'].includes(scheme)) {
     return false
   }
-
-    try {
-        new URL(uri);
-        return true;
-    } catch (e) {
-        return false;
-    }
+  // Otherwise, return true
+  return true
 }

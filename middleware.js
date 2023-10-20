@@ -7,13 +7,14 @@ export const config = {
 export default async function middleware(req) {
   const url = new URL(req.url)
   const uri = url.searchParams.get('uri')
+  console.log(decodeURI(uri))
 
   if (!uri) {
     return null
   }
 
   if (isValidURI(uri)) {
-    return Response.redirect(uri, 302)
+    return Response.redirect(decodeURIComponent(uri), 302)
   }
 
   const errorUrl = new URL('/error', url.origin)
