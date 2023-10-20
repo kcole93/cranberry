@@ -16,7 +16,12 @@ export default async function middleware(req) {
 
   if (isValidURI(uri)) {
     try {
-      return Response.redirect(new URL(uri), 302);
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': uri
+        }
+      });
     } catch (error) {
       console.error('Redirection error:', error);
       return await handleError(url, 'Failed to redirect due to an invalid URI.');
