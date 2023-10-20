@@ -12,16 +12,9 @@ export default async function middleware(req) {
     return null;
   }
 
-  const uri = uriParam.replace(/ /g, '+');  // Replace spaces with + characters
-
-  if (isValidURI(uri)) {
+  if (isValidURI(uriParam)) {
     try {
-      return new Response(null, {
-        status: 302,
-        headers: {
-          'Location': uri
-        }
-      });
+      return Response.redirect(encodeURI(uriParam), 302);
     } catch (error) {
       console.error('Redirection error:', error);
       return await handleError(url, 'Failed to redirect due to an invalid URI.');
