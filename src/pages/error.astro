@@ -2,15 +2,13 @@
 import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout>
+<Layout title="400 Error">
     <h1 class="text-gradient">400 - Bad Request</h1>
-<p>Invalid URI input received, please check again.</p>
+<p>Invalid Zotero URI input received, please check again.</p>
 <p>
-  Note: Cranberry <strong>does not</strong> support URLs with <span class='mono'
-    >http://</span
-  > or <span class='mono'>https://</span>
-   schemas.
-</p>
+  Note: Cranberry <strong>only supports</strong> URIs using the Zotero protocol <span class='mono'
+    >zotero://</span
+  >.</p>
 
 <a href="/">&larr; Go back</a>
 </Layout>
