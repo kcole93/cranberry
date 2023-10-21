@@ -16,11 +16,11 @@ const host = Astro.url.origin
 
 <h2>What is Cranberry?</h2>
 <p>
-  Cranberry is a simple tool which allows you to insert clickable links to URIs,
+  Cranberry is a simple tool which allows you to insert clickable links to <a href="">Zotero URIs</a>,
   even where only URLs are accepted, by constructing your link as follows:
 </p>
 
-<p class='instructions'>{host}/?uri=YOUR_URI</p>
+<p class='instructions'>{host}/?uri=YOUR_ZOTERO_URI</p>
 
 <h2>Make Me a Cranberry Link!</h2>
 <LinkMaker />
@@ -29,20 +29,26 @@ const host = Astro.url.origin
   <summary>What's the point?</summary>
   <p>A lot of platforms let you create links to other webpages, but many of these platforms only allow you to make links using <em>URLs</em>, not <em>URIs</em>.</p>
   <p>URI stands for <strong>U</strong>niform <strong>R</strong>esource <strong>I</strong>dentifier. URIs can be used for all kinds of things, but one particularly helpful function is that they can be used to launch desktop applications from a hyperlink.</p>
-  <p>However, when specific applications don't accept URIs as part of their hyperlink validation (for example, it's not possible to insert a URI as a clickable link in Notion), URIs aren't so functional. The point of Cranberry is to provide a workaround for such situations by allowing anyone to wrap their URI in a valid URL.</p>
+  <p>However, when specific applications don't accept URIs as part of their hyperlink validation (for example, it's not possible to insert a URI as a clickable link in Notion), URIs aren't so functional. The point of Cranberry is to provide a workaround for such situations by allowing anyone to wrap a Zotero URI in a valid URL.</p>
 </details>
 
 <details>
   <summary>How does it work?</summary>
-  <p>When you open a Cranberry URL with a valid URI, a <a href="https://vercel.com/docs/infrastructure#edge-middleware">Vercel Edge Function</a> automatically redirects you to the indicated URI. If the URI you provide is invalid, the Edge Function Middleware responds with a 400 error. Otherwise, you're just shown the home page (here!)</p>
+  <p>When you open a Cranberry URL with a valid Zotero URI, a <a href="https://vercel.com/docs/infrastructure#edge-middleware">Vercel Edge Function</a> automatically redirects you to the specified URI and your browser will prompt you to open the Zotero application. If the Zotero URI you provide is invalid, the Edge Function Middleware responds with a 400 error. Otherwise, you're just shown the home page (here!)</p>
 </details>
 </Layout>
 
 <style>
 .logo-lockup {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; /* vertical alignment when side by side */
+    justify-content: center; /* horizontal alignment when stacked */
+    gap: 10px;
+}
+
+.logo-lockup > * {
+    max-width: 100%; /* ensures flex items can shrink to fit on smaller screens */
 }
   .tagline {
     font-weight: 300;
