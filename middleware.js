@@ -1,4 +1,4 @@
-import isValidURI from './src/utils/isValidURI'
+import isValidZoteroURI from './src/utils/isValidZoteroURI'
 
 export const config = {
   matcher: ['/']
@@ -12,12 +12,12 @@ export default async function middleware(req) {
     return null;
   }
 
-  if (isValidURI(uriParam)) {
+  if (isValidZoteroURI(uriParam)) {
     try {
-      return Response.redirect(encodeURI(uriParam), 302);
+      return Response.redirect(uriParam, 302);
     } catch (error) {
       console.error('Redirection error:', error);
-      return await handleError(url, 'Failed to redirect due to an invalid URI.');
+      return await handleError(url, 'Failed to redirect.');
     }
   }
 
