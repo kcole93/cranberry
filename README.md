@@ -1,7 +1,7 @@
 # Cranberry: The cure for your URI
 Cranberry provides a microservice enabling you to turn [Zotero](https://zotero.org) URIs into a standard URL like so:
 
-https://cranberrysauce.vercel.app/?uri=YOUR_ZOTERO_URI
+https://cranberry.vercel.app/?uri=YOUR_ZOTERO_URI
 
 This URL can be used in places where URLs with non-standard protocols are invalidated, such as in-text hyperlinks in [Notion.so](https://notion.so/).
 
